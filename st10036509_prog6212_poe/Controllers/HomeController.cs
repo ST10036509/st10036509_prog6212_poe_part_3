@@ -16,7 +16,7 @@ namespace st10036509_prog6212_poe.Controllers
         [HttpGet]
         public IActionResult About(string username)
         {
-            TempData["Username"] = username;
+            ViewBag.Username = username;
             return View();
         }
 

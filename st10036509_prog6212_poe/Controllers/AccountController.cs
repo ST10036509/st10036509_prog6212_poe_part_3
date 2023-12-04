@@ -9,12 +9,13 @@ namespace st10036509_prog6212_poe.Controllers
 {
     public class AccountController : Controller
     {
-        static string connectionString = "Server=tcp:dbserver-vc-cldv6212-st10036509.database.windows.net,1433; Initial Catalog = db-vc-prog6212-st10036509-part-2; Persist Security Info=False; User ID = ST10036509; Password=Randomsangh72; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout = 30;";
-        SqlConnection cnn = new SqlConnection(connectionString);
+        string connectionString = "Server=tcp:dbserver-vc-cldv6212-st10036509.database.windows.net,1433; Initial Catalog = db-vc-prog6212-st10036509-part-2; Persist Security Info=False; User ID = ST10036509; Password=Randomsangh72; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout = 30;";
+        
 
         [HttpGet]
         public IActionResult Login()
         {
+            SqlConnection cnn = new SqlConnection(connectionString);
             string query = "SELECT Username, Password FROM Users";
 
             List<UserModel> users = new List<UserModel>();
@@ -61,7 +62,8 @@ namespace st10036509_prog6212_poe.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("About", "Home", new { username });
+                    ViewBag.Username = username;
+                    return RedirectToAction("About", "Home", new {username});
                 }
             }
             else
@@ -74,6 +76,7 @@ namespace st10036509_prog6212_poe.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            SqlConnection cnn = new SqlConnection(connectionString);
             string query = "SELECT Username, Password FROM Users";
 
             List<UserModel> users = new List<UserModel>();
@@ -126,12 +129,14 @@ namespace st10036509_prog6212_poe.Controllers
 
                 var g_username = await Task.Run(() => AddUser(username, hashedPassword));
 
-                return RedirectToAction("About", "Home", new { g_username });
+                ViewBag.Username = username;
+                return RedirectToAction("About", "Home", new {username});
             }
         }
 
         public async Task<string> AddUser(string username, string password)
         {
+            SqlConnection cnn = new SqlConnection(connectionString);
             cnn.Open();
             //create insert query
             string query = "INSERT INTO Users (Username, [Password]) OUTPUT INSERTED.Username VALUES (@Username, @Password);";

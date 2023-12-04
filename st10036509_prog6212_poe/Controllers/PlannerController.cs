@@ -9,8 +9,10 @@ namespace st10036509_prog6212_poe.Controllers
             return View();
         }
 
-        public IActionResult UserPlanner()
+        [HttpGet]
+        public IActionResult UserPlanner(string username)
         {
+            ViewBag.Username = username;
             return View();
         }
     }

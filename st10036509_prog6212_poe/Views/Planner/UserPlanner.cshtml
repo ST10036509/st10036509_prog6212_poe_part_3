@@ -6,12 +6,44 @@
 }
 
 <div class="containor">
+    <nav class="navbar navbar-expand-sm navbar-light">
+        <div class="container-fluid">
+            <object data="~/images/h4u_icon_02_text_green.svg"
+                    width="40"
+                    height="40"
+                    style="position: absolute; top: 0; left: 0; margin-left: 10px; margin-top: 5px">
+            </object>
+            <a class="navbar-brand" style="margin-left: 50px; font-weight: bold">HoursForYou</a>
+            <div class="navbar-collapse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About" asp-route-username="@ViewBag.Username">About</a>
+                    </li>
+                    <li>
+                        <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Semester" asp-action="SemesterCreation" asp-route-username="@ViewBag.Username">Create Semester</a>
+                    </li>
+                    <li>
+                        <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Planner" asp-action="UserPlanner" asp-route-username="@ViewBag.Username">Planner</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="rectangle" style=" width: auto; margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px">
         <div class="block" style="width: 100%">
             <form asp-action="About" method="post">
                 <form>
                     <div class="row">
                         <h1 class="display-4" style="margin-bottom: 25px">Planner:</h1>
+                    </div>
+                    <div class="row">
+                        <p>@ViewBag.Username</p>
                     </div>
                     <div class="row">
                         <p style="color: green">Select from one of your semesters below to view its modules and proceed to viewing the individual module information further.</p>
