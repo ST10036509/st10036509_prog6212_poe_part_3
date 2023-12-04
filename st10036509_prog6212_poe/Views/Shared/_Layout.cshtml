@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - st10036509_prog6212_poe</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/st10036509_prog6212_poe.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        @if (Context.Request.Path.StartsWithSegments("/Home") || (Context.Request.Path.StartsWithSegments("/Semester") || (Context.Request.Path.StartsWithSegments("/Planner"))))
+        {
+            <nav class="navbar navbar-expand-sm navbar-light">
+                <div class="container-fluid">
+                    <object data="~/images/h4u_icon_02_text_green.svg"
+                            width="40"
+                            height="40"
+                            style="position: absolute; top: 0; left: 0; margin-left: 10px; margin-top: 5px">
+                    </object>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="About" style="margin-left: 50px; font-weight: bold">HoursForYou</a>
+                    <div class="navbar-collapse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            </li>
+                            <li>
+                                <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Semester" asp-action="SemesterCreation">Create Semester</a>
+                            </li>
+                            <li>
+                                <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Planner" asp-action="UserPlanner">Planner</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        }
+    </header>
+    <div class="wrapper">
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+
+    </div>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

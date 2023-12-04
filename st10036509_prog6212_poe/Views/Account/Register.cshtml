@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="containor">
+    <object data="~/images/h4u_icon_02_text_green.svg"
+            width="150"
+            height="150"
+            style="margin-top: -400px; margin-right: -155px">
+    </object>
+    <div class="rectangle" style="height: 360px; margin-top: 300px">
+        <div class="block">
+            <form asp-action="Register" method="post">
+                <div class:"row">
+                    <h1 class="display-4" style="font-size: 60px; font-weight: 300">Register</h1>
+                </div>
+                <div class="row">
+                    <label style="font-size: 20px; color: gray">Username:</label>
+                    <input />
+                </div>
+                <div class="row">
+                    <label style ="font-size: 20px; color: gray">Password:</label>
+                    <input type="password"/>
+                </div>
+                <div class="row">
+                    <label style="font-size: 20px; color: gray"> Confirm Password:</label>
+                    <input type="password" />
+                </div>
+                <div class="row">
+                    <button type="button" class="submit_button"
+                            onclick="location.href='@Url.Action("About", "Home")'">
+                        Register
+                    </button>
+                </div>
+                <div class="row">
+                    <button type="button" class="cancel_button"
+                            onclick="location.href='@Url.Action("Login", "Account")'">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

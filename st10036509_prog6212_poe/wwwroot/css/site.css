@@ -1,0 +1,182 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background-image: url("/images/hours_4_you_background_01.png");
+    background-repeat: repeat-y;
+    background-size: auto;
+}
+
+.containor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    left: 0;
+    right: 0;
+}
+
+.heading {
+    font-size: 500px;
+    font-weight: bold;
+}
+
+.row {
+    width: 100%;
+    text-align: center;
+}
+
+.block {
+    width: 225px;
+    margin-left: 25px;
+    display: inline-block;
+}
+
+.submit_button {
+    background-color: #77d17f;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.default_button {
+    background-color: gray;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.cancel_button {
+    background-color: #ff3343;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin-top: 15px;
+}
+
+.rectangle {
+    display: flex;
+    width: 250px;
+    margin: -40px;
+    margin-bottom: 10px;
+    z-index: 0;
+    border: none;
+    border-radius: 25px;
+    background-color: #FFF9F4EE;
+    opacity: 90%;
+}
+
+logo_1 {
+    width: 100px;
+    height: 100px;
+    align-self: center;
+    background-image: url("/images/h4u_icon_02_text_green.svg");
+}
+
+.navbar {
+    background-color: white;
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.footer {
+    flex-shrink: 0;
+    height: 60px; 
+    background-color: forestgreen; 
+    opacity: 65%;
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.table {
+    margin-top: 5px;
+    margin-left: -14px;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    row-gap: 2px;
+}
+
+.table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 4px;
+    max-height: 5px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: dimgray;
+    border-radius: 3px;
+    opacity: 55%;
+}
+
+#semesterTable {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 0px;
+}
+
+#semesterTable thead {
+    position: sticky;
+    top: 0;
+    background-color: seagreen;
+}
+
+#semesterTable td {
+    border: 1px solid gray;
+    background-color: whitesmoke
+}
+
+#moduleTable {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 0px;
+}
+
+#moduleTable thead {
+    position: sticky;
+    top: 0;
+    background-color: tan;
+}
+
+    #moduleTable td {
+        border: 1px solid gray;
+        border-left-width: 0px;
+        background-color: whitesmoke;
+    }

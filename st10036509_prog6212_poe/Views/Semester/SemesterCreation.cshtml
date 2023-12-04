@@ -1,0 +1,100 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Semester Creation";
+}
+
+<div class="containor">
+    <div class="rectangle" style=" width: auto; margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px">
+        <div class="block" style="width: 100%">
+            <form asp-action="Semester" method="post">
+                <div class="row">
+                    <h1 class="display-4" style="margin-bottom: 25px">Create a Semester:</h1>
+                </div>
+                <div class="row">
+                    <p style="color: green">To create a new semester fill out the information below. Keep in mind that you need to add at least one module before you can submit.</p>
+                </div>
+                <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                    <label style="font-size: 20px; color: gray">Semester Name:</label>
+                    <input style="opacity: 100%; height: 35px" />
+                </div>
+                <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                    <label style="font-size: 20px; color: gray">Number of Weeks:</label>
+                    <input type="number" style="opacity: 100%; height: 35px" />
+                </div>
+                <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                    <label style="font-size: 20px; color: gray">Start Date:</label>
+                    <input type="date" style="opacity: 100%; height: 35px" />
+                </div>
+                <div class="row">
+                    <p style="color: green">Add your modules below. You can add as many modules as you like, however, at least one must be added in order to successfully create a semester.</p>
+                </div>
+                <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                    <button type="button" id="addModuleButton" class="default_button"
+                            style="height: 35px">
+                        >> Add Modules <<
+                    </button>
+                </div>
+                <div class="row" id="collapsibleDiv" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto; display: none">
+                    <div class="row">
+                        <p style="color: green">Fill out the below information and click the add module button below to add it to the semester. You can add as many as you want!</p>
+                    </div>
+                    <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                        Ainslie Rocks! True :))
+                        <label style="font-size: 20px; color: gray">Module Name:</label>
+                        <input style="opacity: 100%; height: 35px" />
+                    </div>
+                    <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                        <label style="font-size: 20px; color: gray">Module Code:</label>
+                        <input style="opacity: 100%; height: 35px" />
+                    </div>
+                    <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                        <label style="font-size: 20px; color: gray">Number od Credits:</label>
+                        <input type="number" style="opacity: 100%; height: 35px" />
+                    </div>
+                    <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                        <label style="font-size: 20px; color: gray">Class Hours Per Week:</label>
+                        <input type="number" style="opacity: 100%; height: 35px" />
+                    </div>
+                    <div class="row">
+                        <p id="moduleSuccessMessage" style="display: none; color: forestgreen; font-size: 20px; margin-left: 10px">Successfuly Added Module!</p>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="default_buttons"
+                                style="height: 35px; margin-left: 10px; background-color: #77d1ff; color: white; border: none; text-align: center" ;>
+                            Add Module
+                        </button>
+                    </div>
+                    <table>
+                        <tr>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row">
+                    <p id="semesterSuccessMessage" style="display: none; color: forestgreen; font-size: 20px; margin-left: 10px">Successfuly Added Module!</p>
+                </div>
+                <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                    <button type="button" id="createSemesterButton" class="default_button"
+                            style="height: 35px; background-color: #77d17f">
+                        Create Semester
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("addModuleButton").addEventListener("click", function () {
+        var collapsibleDiv = document.getElementById("collapsibleDiv");
+        var buttonText = document.getElementById("addModuleButton").textContent;
+
+        if (collapsibleDiv.style.display === "none") {
+            collapsibleDiv.style.display = "block";
+            document.getElementById("addModuleButton").textContent = "<< Hide >>";
+        } else {
+            collapsibleDiv.style.display = "none";
+            document.getElementById("addModuleButton").textContent = ">> Add Module <<";
+        }
+    });
+</script>

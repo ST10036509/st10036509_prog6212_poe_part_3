@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<UserModel>
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="containor">
+    <object data="~/images/h4u_icon_02_text_green.svg"
+            width="150"
+            height="150"
+            style="margin-top: -340px; margin-right: -155px">
+    </object>
+    <div class="rectangle" style="height: 300px; margin-top: 300px">
+        <div class="block">
+            <form asp-action="Login" method="post" asp-asp-controller="Account">
+                <div class="row">
+                    <h1 class="display-4" style="font-size: 60px; font-weight: 300">Login</h1>
+                </div>
+                <div class="row">
+                    <label for="username" style="font-size: 20px; color: gray">Username:</label>
+                    <input id="usernameInput" name="Username" class="form-control" required/>
+                </div>
+                <div class="row">
+                    <label style="font-size: 20px; color: gray; opacity: initial">Password:</label>
+                    <input id="passwordInput" name="Password" class="form-control" type="password" required/>
+                </div>
+                <div class="row">
+                    
+                    <button type="submit" id="loginButton" class="submit_button">
+                            Login
+                    </button>
+                    <input type="hidden" name="userModelList" value=" @System.Text.Json.JsonSerializer.Serialize(Model)" />
+                </div>
+                <div class="row">
+                    <a asp-controller="Account" asp-action="Register" style="font-size: 14px">Don't Have An Account Yet? Register Here.</a>
+                </div>
+                @if (TempData.ContainsKey("ErrorMessage"))
+                {
+                    <div class="row">
+                        <div class="error-message" style="color: darkred; font-weight: bold">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+</div>

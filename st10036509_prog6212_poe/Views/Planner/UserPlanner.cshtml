@@ -1,0 +1,176 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "UserPlanner";
+}
+
+<div class="containor">
+    <div class="rectangle" style=" width: auto; margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px">
+        <div class="block" style="width: 100%">
+            <form asp-action="About" method="post">
+                <form>
+                    <div class="row">
+                        <h1 class="display-4" style="margin-bottom: 25px">Planner:</h1>
+                    </div>
+                    <div class="row">
+                        <p style="color: green">Select from one of your semesters below to view its modules and proceed to viewing the individual module information further.</p>
+                    </div>
+                    <div class="table-container">
+                        <table class="table" id="semesterTable" style="border-color: black; column-rule-color: black; column-rule-style: solid; column-rule-color: black">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Your Semesters:
+                                    </th>
+                                    <th>
+                                        Select
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="semesters">1</td>
+                                    <td><input type="radio" name="selectedSemester" value="1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="semesters">2</td>
+                                    <td><input type="radio" name="selectedSemester" value="1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="semesters">3</td>
+                                    <td><input type="radio" name="selectedSemester" value="1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="semesters">4</td>
+                                    <td><input type="radio" name="selectedSemester" value="1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="semesters">5</td>
+                                    <td><input type="radio" name="selectedSemester" value="1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="semesters">6</td>
+                                    <td><input type="radio" name="selectedSemester" value="1"></td>
+                                </tr>
+                                @* @foreach (var semester in Model)
+                                {
+                                <tr>
+                                <td>@semester.Name</td>
+                                </tr>
+                                } *@
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row" id="collapsibleDiv" style="margin-bottom: 20px; max-width: 90%; display: none; margin-left: 65px">
+                        <div class="row">
+                            <p style="color: green; margin-top: 20px">Select from one of your modules below to view its infomration and proceed to viewing the individual module information further.</p>
+                        </div>
+                        <div class="rectangle" style="margin-top: 30px; background-color: #FFF9F4EE; opacity: 100%; width: 100%; align-items: center">
+                           <div class="block" style="width: 100%">
+                                <div class="row">
+                                    <label class="display-6" id="selectedSemesterLabel" style="margin-left: auto"></label>
+                                </div>
+                                <div class="row">
+                                    <div class="table-container">
+                                        <table class="table" id="moduleTable" style="border-color: black; min-width: auto; margin-left: auto">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Modules
+                                                    </th>
+                                                    <th>
+                                                        Hours
+                                                    </th>
+                                                    <th>
+                                                        Select
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="modules">1</td>
+                                                    <td>1</td>
+                                                    <td><input type="radio" name="selectedModule" value="1"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="modules">2</td>
+                                                    <td>1</td>
+                                                    <td><input type="radio" name="selectedModule" value="1"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="modules">3</td>
+                                                    <td>1</td>
+                                                    <td><input type="radio" name="selectedModule" value="1"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="modules">4</td>
+                                                    <td>1</td>
+                                                    <td><input type="radio" name="selectedModule" value="1"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="modules">5</td>
+                                                    <td>1</td>
+                                                    <td><input type="radio" name="selectedModule" value="1"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="modules">6</td>
+                                                    <td>1</td>
+                                                    <td><input type="radio" name="selectedModule" value="1"></td>
+                                                </tr>
+                                                @* @foreach (var semester in Model)
+                                                {
+                                                <tr>
+                                                <td>@semester.Name</td>
+                                                </tr>
+                                                } *@
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="row" id="collapsibleDiv" style="margin-bottom: 20px; max-width: auto; display: none; margin-left: 65px">
+                        <div class="rectangle" style="margin-top: 50px; background-color: #FFF9F4EE; opacity: 100%; min-width: 800px; max-width: auto; align-items: center">
+                        </div>
+                    </div>
+                </form>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const radioButtonsSemesterTable = document.querySelectorAll('input[name="selectedSemester"]');
+    const radioButtonsModuleTable = document.querySelectorAll('input[name="selectedModule"]');
+    const selectedSemesterLabel = document.getElementById('selectedSemesterLabel');
+
+    radioButtonsSemesterTable.forEach(function (radioButton) {
+        radioButton.addEventListener('change', function () {
+            showDiv();
+            const selectedRow = this.closest('tr');
+            const selectedSemester = getSemesterName(selectedRow);
+            showSelectedSemesterName(selectedSemester);
+            radioButtonsModuleTable.forEach(function (radioButtonTable2) {
+                radioButtonTable2.checked = false;
+            });
+        });
+    });
+
+    function showDiv() {
+        var collapsibleDiv = document.getElementById('collapsibleDiv');
+
+        if (collapsibleDiv.style.display === 'none') {
+            collapsibleDiv.style.display = 'block';
+        }
+    }
+
+    function showSelectedSemesterName(selectedSemester) {
+        selectedSemesterLabel.textContent = selectedSemester + "'s Modules:";
+    }
+
+    function getSemesterName(row) {
+        const semesterName = row.querySelector('.semesters').textContent.trim();
+        return semesterName;
+    }
+</script>
