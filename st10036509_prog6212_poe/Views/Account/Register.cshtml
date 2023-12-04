@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<UserModel>
 @{
     ViewData["Title"] = "Register";
 }
@@ -18,22 +19,22 @@
                     <h1 class="display-4" style="font-size: 60px; font-weight: 300">Register</h1>
                 </div>
                 <div class="row">
-                    <label style="font-size: 20px; color: gray">Username:</label>
-                    <input />
+                    <label for="username" style="font-size: 20px; color: gray">Username:</label>
+                    <input id="username" name="Username" class="form-control" required />
                 </div>
                 <div class="row">
-                    <label style ="font-size: 20px; color: gray">Password:</label>
-                    <input type="password"/>
+                    <label for="password" style ="font-size: 20px; color: gray">Password:</label>
+                    <input id="password" name="Password" class="form-control" type="password" required />
                 </div>
                 <div class="row">
-                    <label style="font-size: 20px; color: gray"> Confirm Password:</label>
-                    <input type="password" />
+                    <label for="confirmPassword" style="font-size: 20px; color: gray"> Confirm Password:</label>
+                    <input id="confirmPassword" name="ConfirmPassword" class="form-control" type="password" required />
                 </div>
                 <div class="row">
-                    <button type="button" class="submit_button"
-                            onclick="location.href='@Url.Action("About", "Home")'">
+                    <button type="submit" id="registerButton" class="submit_button">
                         Register
                     </button>
+                    <input type="hidden" name="userModelList" value=" @System.Text.Json.JsonSerializer.Serialize(Model)" />
                 </div>
                 <div class="row">
                     <button type="button" class="cancel_button"
@@ -41,6 +42,14 @@
                         Cancel
                     </button>
                 </div>
+                @if (TempData.ContainsKey("ErrorMessage"))
+                {
+                    <div class="row">
+                        <div class="error-message" style="color: darkred; font-weight: bold">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    </div>
+                }
             </form>
         </div>
     </div>

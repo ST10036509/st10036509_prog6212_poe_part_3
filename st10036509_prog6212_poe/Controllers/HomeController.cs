@@ -13,8 +13,10 @@ namespace st10036509_prog6212_poe.Controllers
             _logger = logger;
         }
 
-        public IActionResult About()
+        [HttpGet]
+        public IActionResult About(string username)
         {
+            TempData["Username"] = username;
             return View();
         }
 
