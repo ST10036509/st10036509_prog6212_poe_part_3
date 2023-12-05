@@ -42,7 +42,7 @@
                     <h1 class="display-4" style="margin-bottom: 25px">Create a Semester:</h1>
                 </div>
                 <div class="row">
-                    <p>@ViewBag.UserID</p>
+                    <p>UserID:@ViewBag.UserID</p>
                 </div>
                 <div class="row">
                     <p style="color: green">To create a new semester fill out the information below. Keep in mind that you need to add at least one module before you can submit.</p>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <button type="button" id="addModuleButton" class="default_button"
-                            style="height: 35px" onclick="location.href='@Url.Action("ModuleCreation", "Module", new {@ViewBag.UserID})'">
+                            style="height: 35px" onclick="location.href='@Url.Action("ModuleCreation", "Module", new {@ViewBag.UserID, @ViewBag.Modules})'">
                         Add Modules
                     </button>
                 </div>
@@ -83,16 +83,8 @@
 </div>
 <script>
     document.getElementById("addModuleButton").addEventListener("click", function () {
-        var collapsibleDiv = document.getElementById("collapsibleDiv");
         var buttonText = document.getElementById("addModuleButton").textContent;
 
-        if (collapsibleDiv.style.display === "none") {
-            collapsibleDiv.style.display = "block";
-            document.getElementById("addModuleButton").textContent = "<< Hide >>";
-        } else {
-            collapsibleDiv.style.display = "none";
-            document.getElementById("addModuleButton").textContent = ">> Add Module <<";
-        }
     });
         
 </script>
