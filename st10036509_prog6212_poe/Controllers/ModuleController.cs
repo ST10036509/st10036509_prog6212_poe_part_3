@@ -19,6 +19,14 @@ namespace st10036509_prog6212_poe.Controllers
             ViewBag.UserID = userID;
             ViewBag.Modules = modules;
 
+            modules.Add(new ModuleModel
+            {
+                ModuleName = moduleName,
+                ModuleCode = moduleCode,
+                Credits = numberOfCredits,
+                ClassHours = hoursPerWeek
+            });
+
             return View();
         }
     }

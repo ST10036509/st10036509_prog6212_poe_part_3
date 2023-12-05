@@ -74,8 +74,8 @@
                                     @foreach (var module in ViewBag.Modules)
                                     {
                                         <tr>
-                                            <td class="modules">@module.Name</td>
-                                            <td>@module.Hours</td>
+                                            <td class="modules">@module.ModuleName</td>
+                                            <td>@module.SelfStudyHours</td>
                                             <td><input type="radio" name="selectedModule" value="1"></td>
                                         </tr>
                                     }

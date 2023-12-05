@@ -49,22 +49,22 @@
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label style="font-size: 20px; color: gray">Semester Name:</label>
-                    <input style="opacity: 100%; height: 35px" />
+                    <input id="semesterName" style="opacity: 100%; height: 35px" required />
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label style="font-size: 20px; color: gray">Number of Weeks:</label>
-                    <input type="number" style="opacity: 100%; height: 35px" />
+                    <input id="numberOfWeeks" type="number" style="opacity: 100%; height: 35px" required />
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label style="font-size: 20px; color: gray">Start Date:</label>
-                    <input type="date" style="opacity: 100%; height: 35px" />
+                    <input id="startDate" type="date" style="opacity: 100%; height: 35px" required />
                 </div>
                 <div class="row">
                     <p style="color: green">Add your modules below. You can add as many modules as you like, however, at least one must be added in order to successfully create a semester.</p>
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <button type="button" id="addModuleButton" class="default_button"
-                            style="height: 35px" onclick="location.href='@Url.Action("ModuleCreation", "Module", new {@ViewBag.UserID, @ViewBag.Modules})'">
+                            style="height: 35px" onclick="validateInputsAndRedirect('@Url.Action("ModuleCreation", "Module", new { userID = ViewBag.UserID, modules = ViewBag.Modules })')">
                         Add Modules
                     </button>
                 </div>
@@ -82,9 +82,9 @@
     </div>
 </div>
 <script>
-    document.getElementById("addModuleButton").addEventListener("click", function () {
-        var buttonText = document.getElementById("addModuleButton").textContent;
+    function validateInputsAndRedirect(url) {
+        var semesterName
 
-    });
-        
+        location.href = url;
+    }
 </script>

@@ -16,7 +16,7 @@ namespace st10036509_prog6212_poe.Controllers
             ViewBag.UserID = userID;
 
             SqlConnection cnn = new SqlConnection(connectionString);
-            string query = "SELECT ModuleID, ModuleName, SelfStudyHours FROM Modules WHERE SemesterID = @SemesterID";
+            string query = "SELECT ModuleName, SelfStudyHours FROM Modules WHERE SemesterID = @SemesterID";
 
             List<ModuleModel> modules = new List<ModuleModel>();
 
@@ -31,9 +31,8 @@ namespace st10036509_prog6212_poe.Controllers
                     {
                         modules.Add(new ModuleModel
                         {
-                            ModuleID = (int)reader["ModuleID"],
-                            Name = reader["ModuleName"].ToString(),
-                            Hours = reader["SelfStudyHours"].ToString()
+                            ModuleName = reader["ModuleName"].ToString(),
+                            SelfStudyHours = (int)reader["SelfStudyHours"]
                         });
                     }
                 }
