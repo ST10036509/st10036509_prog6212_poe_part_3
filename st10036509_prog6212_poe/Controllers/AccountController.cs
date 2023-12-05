@@ -11,12 +11,11 @@ namespace st10036509_prog6212_poe.Controllers
     {
         string connectionString = "Server=tcp:dbserver-vc-cldv6212-st10036509.database.windows.net,1433; Initial Catalog = db-vc-prog6212-st10036509-part-2; Persist Security Info=False; User ID = ST10036509; Password=Randomsangh72; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout = 30;";
         
-
         [HttpGet]
         public IActionResult Login()
         {
             SqlConnection cnn = new SqlConnection(connectionString);
-            string query = "SELECT Username, Password FROM Users";
+            string query = "SELECT UserID, Username, Password FROM Users";
 
             List<UserModel> users = new List<UserModel>();
 
@@ -30,6 +29,7 @@ namespace st10036509_prog6212_poe.Controllers
                     {
                         UserModel user = new UserModel
                         {
+                            UserID = (int)reader["UserID"],
                             Username = (string)reader["Username"],
                             Password = (string)reader["Password"],
                         };
@@ -62,8 +62,8 @@ namespace st10036509_prog6212_poe.Controllers
                 }
                 else
                 {
-                    ViewBag.Username = username;
-                    return RedirectToAction("About", "Home", new {username});
+                    ViewBag.UserID = user.UserID;
+                    return RedirectToAction("About", "Home", new {user.UserID});
                 }
             }
             else
@@ -127,19 +127,19 @@ namespace st10036509_prog6212_poe.Controllers
                 PasswordHandler handler = new PasswordHandler();
                 var hashedPassword = await Task.Run(() => handler.EncryptPassword(password));
 
-                var g_username = await Task.Run(() => AddUser(username, hashedPassword));
+                var userID = await Task.Run(() => AddUser(username, hashedPassword));
 
-                ViewBag.Username = username;
+                ViewBag.UserID = userID;
                 return RedirectToAction("About", "Home", new {username});
             }
         }
 
-        public async Task<string> AddUser(string username, string password)
+        public async Task<int> AddUser(string username, string password)
         {
             SqlConnection cnn = new SqlConnection(connectionString);
             cnn.Open();
             //create insert query
-            string query = "INSERT INTO Users (Username, [Password]) OUTPUT INSERTED.Username VALUES (@Username, @Password);";
+            string query = "INSERT INTO Users (Username, [Password]) OUTPUT INSERTED.UserID VALUES (@Username, @Password);";
             //make a new command
             SqlCommand command = new SqlCommand(query, cnn);
             //insert variable values into query
@@ -147,9 +147,9 @@ namespace st10036509_prog6212_poe.Controllers
             command.Parameters.AddWithValue("@Password", password);
 
             //run query and get the inserted records UserID
-            string g_username = (string)await command.ExecuteScalarAsync();
+            int userID = (int)await command.ExecuteScalarAsync();
             cnn.Close();
-            return g_username;
+            return userID;
         }//end AddUser method
     }
 }

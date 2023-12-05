@@ -14,19 +14,19 @@
             <div class="navbar-collapse">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About" asp-route-username="@ViewBag.Username">About</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About" asp-route-userID="@ViewBag.UserID">About</a>
                     </li>
                     <li>
                         <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Semester" asp-action="SemesterCreation" asp-route-username="@ViewBag.Username">Create Semester</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Semester" asp-action="SemesterCreation" asp-route-userID="@ViewBag.UserID">Create Semester</a>
                     </li>
                     <li>
                         <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Planner" asp-action="UserPlanner" asp-route-username="@ViewBag.Username">Planner</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="SemesterPlanner" asp-action="UserSemesterPlanner" asp-route-userID="@ViewBag.UserID">Planner</a>
                     </li>
                 </ul>
             </div>
@@ -39,7 +39,7 @@
                     <h1 class="display-4" style="margin-bottom: 25px">What is HoursForYou?</h1>
                 </div>
                 <div class="row">
-                    <p>@ViewBag.Username</p>
+                    <p>@ViewBag.UserID</p>
                 </div>
             </form>
         </div>

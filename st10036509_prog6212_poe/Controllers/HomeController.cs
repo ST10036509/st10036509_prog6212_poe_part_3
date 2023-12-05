@@ -14,21 +14,10 @@ namespace st10036509_prog6212_poe.Controllers
         }
 
         [HttpGet]
-        public IActionResult About(string username)
+        public IActionResult About(int userID)
         {
-            ViewBag.Username = username;
+            ViewBag.UserID = userID;
             return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

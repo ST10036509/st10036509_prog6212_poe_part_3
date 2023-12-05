@@ -2,10 +2,9 @@
 
 namespace st10036509_prog6212_poe.Controllers
 {
-    public class SemesterController : Controller
+    public class ModuleController : Controller
     {
-        [HttpGet]
-        public IActionResult SemesterCreation(int userID)
+        public IActionResult ModuleCreation(int userID)
         {
             ViewBag.UserID = userID;
             return View();

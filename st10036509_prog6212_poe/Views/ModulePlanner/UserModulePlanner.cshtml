@@ -1,0 +1,97 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "UserModulePlanner";
+}
+
+<div class="containor">
+    <nav class="navbar navbar-expand-sm navbar-light">
+        <div class="container-fluid">
+            <object data="~/images/h4u_icon_02_text_green.svg"
+                    width="40"
+                    height="40"
+                    style="position: absolute; top: 0; left: 0; margin-left: 10px; margin-top: 5px">
+            </object>
+            <a class="navbar-brand" style="margin-left: 50px; font-weight: bold">HoursForYou</a>
+            <div class="navbar-collapse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About" asp-route-userID="@ViewBag.UserID">About</a>
+                    </li>
+                    <li>
+                        <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Semester" asp-action="SemesterCreation" asp-route-userID="@ViewBag.UserID">Create Semester</a>
+                    </li>
+                    <li>
+                        <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="SemesterPlanner" asp-action="UserSemesterPlanner" asp-route-userID="@ViewBag.UserID">Planner</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="rectangle" style=" margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px; align-content: center">
+        <div class="block" style="width: 100%">
+            <form asp-action="UserModulePlanner" method="post">
+                <form>
+                    <div class="row">
+                        <h1 class="display-4" style="margin-bottom: 25px">Planner:</h1>
+                    </div>
+                    <div class="row">
+                        <p>UserID:@ViewBag.UserID</p>
+                    </div>
+                    <div class="row">
+                        <p>SemesterID:@ViewBag.SemesterID</p>
+                    </div>
+                    <div class="row">
+                        <p style="color: green; margin-top: 20px">Select from one of your modules below to view its infomration and proceed to viewing the individual module information further.</p>
+                    </div>
+                    <div class="row">
+                        <label class="display-6" id="selectedSemesterLabel" style="margin-left: auto"></label>
+                    </div>
+                    <div class="row">
+                        <div class="table-container">
+                            <table class="table" id="moduleTable" style="border-color: black; column-rule-color: black; column-rule-style: solid; column-rule-color: black">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Modules
+                                        </th>
+                                        <th>
+                                            Hours
+                                        </th>
+                                        <th>
+                                            Select
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var module in ViewBag.Modules)
+                                    {
+                                        <tr>
+                                            <td class="modules">@module.Name</td>
+                                            <td>@module.Hours</td>
+                                            <td><input type="radio" name="selectedModule" value="1"></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="row" style="margin-bottom: 20px;margin-top: 40px; max-width: 660px; margin-right: auto; margin-left: auto">
+                                <button type="button" id="back" class="default_button"
+                                        style="height: 35px; background-color: red" onclick="location.href='@Url.Action("UserSemesterPlanner", "SemesterPlanner", new {@ViewBag.UserID})'">
+                                    Back
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                 </form>
+            </form>
+        </div>
+    </div>
+</div>
+    
