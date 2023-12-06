@@ -34,7 +34,7 @@ namespace st10036509_prog6212_poe.Controllers
                         //semesterNames.Add(reader["SemesterName"].ToString());
                         semesters.Add(new SemesterModel
                         {
-                            Name = reader["SemesterName"].ToString(),
+                            SemesterName = reader["SemesterName"].ToString(),
                             SemesterID = (int)reader["SemesterID"]
                         });
                     }

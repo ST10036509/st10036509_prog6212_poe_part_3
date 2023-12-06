@@ -57,16 +57,16 @@
                     <p style="color: green">To create a new semester fill out the information below. Keep in mind that you need to add at least one module before you can submit.</p>
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
-                    <label style="font-size: 20px; color: gray">Semester Name:</label>
-                    <input id="semesterName" style="opacity: 100%; height: 35px" value="@ViewBag.SemesterName" required />
+                    <label for="semesterName" style="font-size: 20px; color: gray">Semester Name:</label>
+                    <input id="semesterName" name="semesterName" style="opacity: 100%; height: 35px" value="@ViewBag.SemesterName" required />
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
-                    <label style="font-size: 20px; color: gray">Number of Weeks:</label>
-                    <input id="numberOfWeeks" type="number" style="opacity: 100%; height: 35px" value="@ViewBag.NumberOfWeeks" required />
+                    <label for="numberOfWeeks" style="font-size: 20px; color: gray">Number of Weeks:</label>
+                    <input id="numberOfWeeks" name="numberOfWeeks" type="number" min="0" style="opacity: 100%; height: 35px" value="@ViewBag.NumberOfWeeks" required />
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
-                    <label style="font-size: 20px; color: gray">Start Date:</label>
-                    <input id="startDate" type="date" style="opacity: 100%; height: 35px" value="@ViewBag.StartDate" required />
+                    <label for="startDate" style="font-size: 20px; color: gray">Start Date:</label>
+                    <input id="startDate" name="startDate" type="date" style="opacity: 100%; height: 35px" value="@ViewBag.StartDate" required />
                 </div>
                 <div class="row">
                     <p style="color: green">Add your modules below. You can add as many modules as you like, however, at least one must be added in order to successfully create a semester.</p>
@@ -81,7 +81,9 @@
                     <p id="semesterSuccessMessage" style="display: none; color: forestgreen; font-size: 20px; margin-left: 10px">Successfuly Added Module!</p>
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
-                    <button type="button" id="createSemesterButton" class="default_button"
+                    <button type="submit" id="createSemesterButton" class="submit_button"
+                            asp-route-userID="@ViewBag.UserID" asp-route-semesterName="@ViewBag.SemesterName"
+                            asp-route-numberOfWeeks="@ViewBag.NumberOfWeeks" asp-route-startDate="@ViewBag.StartDate"
                             style="height: 35px; background-color: #77d17f">
                         Create Semester
                     </button>
@@ -104,6 +106,11 @@
         redirectUrl += '&startDate=' + encodeURIComponent(startDate);
 
         location.href = redirectUrl;
+    }
+
+    function isValidDate(dateString) {
+        var timestamp = Date.parse(dateString);
+        return !isNaN(timestamp);
     }
 
     function formatDate(dateString) {

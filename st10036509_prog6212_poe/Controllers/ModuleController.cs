@@ -22,7 +22,7 @@ namespace st10036509_prog6212_poe.Controllers
         }
 
         [HttpPost] 
-        public IActionResult ModuleCreation(string moduleName, string moduleCode, double numberOfCredits, double hoursPerWeek, int userID)
+        public IActionResult ModuleCreation(string moduleName, string moduleCode, double numberOfCredits, double hoursPerWeek, int userID, string semesterName, int numberOfWeeks, string startDate)
         {
 
             ModuleModel newModule = new ModuleModel
@@ -30,12 +30,17 @@ namespace st10036509_prog6212_poe.Controllers
                 ModuleName = moduleName,
                 ModuleCode = moduleCode,
                 Credits = numberOfCredits,
-                ClassHours = hoursPerWeek
+                ClassHours = hoursPerWeek,
+                CompletedHours = new Dictionary<string, double>()
             };
 
             ModuleRepository.AddModules(newModule);
             ViewBag.Modules = ModuleRepository.GetModules();
+
             ViewBag.UserID = userID;
+            ViewBag.SemesterName = semesterName;
+            ViewBag.NumberOfWeeks = numberOfWeeks;
+            ViewBag.StartDate = startDate;
             return View();
         }
     }

@@ -58,25 +58,27 @@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     Ainslie Rocks! True :))
                     <label for="moduleName" style="font-size: 20px; color: gray">Module Name:</label>
-                    <input id="moduleName" style="opacity: 100%; height: 35px" />
+                    <input id="moduleName" name="moduleName" style="opacity: 100%; height: 35px" required />
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label for="moduleCode" style="font-size: 20px; color: gray">Module Code:</label>
-                    <input id="moduleCode" style="opacity: 100%; height: 35px" />
+                    <input id="moduleCode" name="moduleCode" style="opacity: 100%; height: 35px" required />
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label for="numberOfCredits" style="font-size: 20px; color: gray">Number of Credits:</label>
-                    <input id="numberOfCredits"type="number" style="opacity: 100%; height: 35px" />
+                    <input id="numberOfCredits" name="numberOfCredits" type="number" value="1" min="1" style="opacity: 100%; height: 35px" required />
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label for="hoursPerWeek" style="font-size: 20px; color: gray">Class Hours Per Week:</label>
-                    <input id="hoursPerWeek" type="number" style="opacity: 100%; height: 35px" />
+                    <input id="hoursPerWeek" name="hoursPerWeek" type="number" value="1" min="1" style="opacity: 100%; height: 35px" required />
                 </div>
                 <div class="row">
                     <p id="moduleSuccessMessage" style="display: none; color: forestgreen; font-size: 20px; margin-left: 10px">Successfuly Added Module!</p>
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
-                    <button type="submit" id="createModuleButton" class="submit_button" asp-route-userID="@ViewBag.UserID"
+                    <button type="submit" id="createModuleButton" class="submit_button" 
+                            asp-route-userID="@ViewBag.UserID" asp-route-semesterName="@ViewBag.SemesterName"
+                            asp-route-numberOfWeeks="@ViewBag.NumberOfWeeks" asp-route-startDate="@ViewBag.StartDate"
                             style="height: 35px; background-color: #77d1ff">
                         Add Module
                     </button>
@@ -107,6 +109,6 @@
         redirectUrl += '&numberOfWeeks=' + numberOfWeeks;
         redirectUrl += '&startDate=' + encodeURIComponent(startDate);
 
-        location.href = redirectUrl;
+        location.href = redirectUrl;  
     }
 </script>

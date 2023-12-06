@@ -64,7 +64,7 @@
                                 @foreach (var semester in ViewBag.Semesters)
                                 {
                                 <tr data-semester-id="@semester.SemesterID">
-                                    <td class ="semesters">@semester.Name</td>
+                                    <td class ="semesters">@semester.SemesterName</td>
                                     <td><input type="radio" name="selectedSemester"></td>
                                 </tr>
                                 }

@@ -2,11 +2,11 @@
 {
     public class ModuleModel
     {
-        public string ModuleName { get; set; }
-        public string ModuleCode { get; set; }
+        public string? ModuleName { get; set; }
+        public string? ModuleCode { get; set; }
         public double Credits { get; set; }
         public double ClassHours { get; set; }
-        public Dictionary<string, double> CompletedHours { get; set; }
+        public Dictionary<string, double>? CompletedHours { get; set; }
         public double SelfStudyHours { get; set; }
         public DateTime SemesterStartDate { get; set; }
 

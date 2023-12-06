@@ -2,7 +2,10 @@
 {
     public class SemesterModel
     {
-        public string Name { get; set; }
+        public string SemesterName { get; set; }
+        public double NumberOfWeeks { get; set; }
+        public DateTime StartDate { get; set; }
+        public List<ModuleModel> Modules { get; set; }
         public int SemesterID { get; set; }
     }
 }

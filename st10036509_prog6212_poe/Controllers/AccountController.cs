@@ -130,7 +130,7 @@ namespace st10036509_prog6212_poe.Controllers
                 var userID = await Task.Run(() => AddUser(username, hashedPassword));
 
                 ViewBag.UserID = userID;
-                return RedirectToAction("About", "Home", new {username});
+                return RedirectToAction("About", "Home", new {userID});
             }
         }
 
