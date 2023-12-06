@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using st10036509_prog6212_poe.Models;
+using st10036509_prog6212_poe.Repositories;
 using System.Diagnostics;
 
 namespace st10036509_prog6212_poe.Controllers
@@ -16,6 +17,7 @@ namespace st10036509_prog6212_poe.Controllers
         [HttpGet]
         public IActionResult About(int userID)
         {
+            ModuleRepository.ClearModules();
             ViewBag.UserID = userID;
             return View();
         }

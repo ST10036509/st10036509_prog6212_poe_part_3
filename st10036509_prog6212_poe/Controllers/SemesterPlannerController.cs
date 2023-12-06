@@ -1,6 +1,7 @@
 ﻿using HoursForYourLib;
 using Microsoft.AspNetCore.Mvc;
 using st10036509_prog6212_poe.Models;
+using st10036509_prog6212_poe.Repositories;
 using System.Data.SqlClient;
 
 namespace st10036509_prog6212_poe.Controllers
@@ -14,6 +15,7 @@ namespace st10036509_prog6212_poe.Controllers
         [HttpGet]
         public async Task<IActionResult> UserSemesterPlanner(int userID)
         {
+            ModuleRepository.ClearModules();
             ViewBag.UserID = userID;
             SqlConnection cnn = new SqlConnection(connectionString);
             string query = "SELECT SemesterID, SemesterName FROM Semesters WHERE UserID = @userID";

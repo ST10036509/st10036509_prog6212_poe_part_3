@@ -45,26 +45,35 @@
                     <p>UserID:@ViewBag.UserID</p>
                 </div>
                 <div class="row">
+                    <p>Name:@ViewBag.SemesterName</p>
+                </div>
+                <div class="row">
+                    <p>Weeks:@ViewBag.NumberOfWeeks</p>
+                </div>
+                <div class="row">
+                    <p>Date:@ViewBag.StartDate</p>
+                </div>
+                <div class="row">
                     <p style="color: green">To create a new semester fill out the information below. Keep in mind that you need to add at least one module before you can submit.</p>
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label style="font-size: 20px; color: gray">Semester Name:</label>
-                    <input id="semesterName" style="opacity: 100%; height: 35px" required />
+                    <input id="semesterName" style="opacity: 100%; height: 35px" value="@ViewBag.SemesterName" required />
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label style="font-size: 20px; color: gray">Number of Weeks:</label>
-                    <input id="numberOfWeeks" type="number" style="opacity: 100%; height: 35px" required />
+                    <input id="numberOfWeeks" type="number" style="opacity: 100%; height: 35px" value="@ViewBag.NumberOfWeeks" required />
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label style="font-size: 20px; color: gray">Start Date:</label>
-                    <input id="startDate" type="date" style="opacity: 100%; height: 35px" required />
+                    <input id="startDate" type="date" style="opacity: 100%; height: 35px" value="@ViewBag.StartDate" required />
                 </div>
                 <div class="row">
                     <p style="color: green">Add your modules below. You can add as many modules as you like, however, at least one must be added in order to successfully create a semester.</p>
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <button type="button" id="addModuleButton" class="default_button"
-                            style="height: 35px" onclick="validateInputsAndRedirect('@Url.Action("ModuleCreation", "Module", new { userID = ViewBag.UserID, modules = ViewBag.Modules })')">
+                            style="height: 35px" onclick="validateInputsAndRedirect('@Url.Action("ModuleCreation", "Module")')">
                         Add Modules
                     </button>
                 </div>
@@ -83,8 +92,25 @@
 </div>
 <script>
     function validateInputsAndRedirect(url) {
-        var semesterName
+        var semesterName = document.getElementById("semesterName").value;
+        var numberOfWeeks = parseInt(document.getElementById("numberOfWeeks").value);
+        var startDate = formatDate(document.getElementById("startDate").value);
+        var userID = '@ViewBag.UserID';
 
-        location.href = url;
+        var redirectUrl = url;
+        redirectUrl += '?userID=' + encodeURIComponent(userID);
+        redirectUrl += '&semesterName=' + encodeURIComponent(semesterName);
+        redirectUrl += '&numberOfWeeks=' + numberOfWeeks;
+        redirectUrl += '&startDate=' + encodeURIComponent(startDate);
+
+        location.href = redirectUrl;
+    }
+
+    function formatDate(dateString) {
+        var date = new Date(dateString);
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+        var day = date.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 </script>
