@@ -88,6 +88,12 @@
                         Create Semester
                     </button>
                 </div>
+                @if (TempData["AlertMessage"] != null)
+                {
+                    <script>
+                        alert('@TempData["AlertMessage"]');
+                    </script>
+                }
             </form>
         </div>
     </div>

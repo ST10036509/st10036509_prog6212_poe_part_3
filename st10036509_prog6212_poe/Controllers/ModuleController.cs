@@ -41,6 +41,8 @@ namespace st10036509_prog6212_poe.Controllers
             ViewBag.SemesterName = semesterName;
             ViewBag.NumberOfWeeks = numberOfWeeks;
             ViewBag.StartDate = startDate;
+
+            TempData["AlertMessage"] = "Added Module Successfully!";
             return View();
         }
     }

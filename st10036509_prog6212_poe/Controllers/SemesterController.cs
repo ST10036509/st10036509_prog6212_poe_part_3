@@ -57,6 +57,8 @@ namespace st10036509_prog6212_poe.Controllers
             ViewBag.SemesterName = null;
             ViewBag.NumberOfWeeks = 1;
             ViewBag.StartDate = null;
+            TempData["AlertMessage"] = "Semester Created Successfully";
+
             return View();
         }
 
@@ -88,6 +90,9 @@ namespace st10036509_prog6212_poe.Controllers
                     module.CompletedHours.Add(i.ToString(), module.SelfStudyHours);
                 }
             }
+
+            
+
             return modules;
         }//end ModuleHoursAssignment method
 

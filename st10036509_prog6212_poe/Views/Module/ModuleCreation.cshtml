@@ -89,6 +89,12 @@
                         Back
                     </button>
                 </div>
+                @if (TempData["AlertMessage"] != null)
+                {
+                    <script>
+                        alert('@TempData["AlertMessage"]');
+                    </script>
+                }
                 <div class="row">
                     <label>@(ViewBag.Modules != null ? ViewBag.Modules.Count : 0)</label>
                 </div>
