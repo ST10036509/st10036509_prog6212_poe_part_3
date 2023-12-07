@@ -78,8 +78,6 @@
 </div>
 <script>
     const radioButtonsSemesterTable = document.querySelectorAll('input[name="selectedSemester"]');
-    const radioButtonsModuleTable = document.querySelectorAll('input[name="selectedModule"]');
-    const selectedSemesterLabel = document.getElementById('selectedSemesterLabel');
 
     radioButtonsSemesterTable.forEach(function (radioButton) {
         radioButton.addEventListener('change', function () {
@@ -90,9 +88,4 @@
             window.location.href = '/ModulePlanner/UserModulePlanner?userID=' + encodeURIComponent(userID) + '&semesterID=' + encodeURIComponent(selectedSemesterID);
         });
     });
-
-    function getSemesterName(row) {
-        const semesterName = row.querySelector('.semesters').textContent.trim();
-        return semesterName;
-    }
 </script>

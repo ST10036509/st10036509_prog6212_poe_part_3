@@ -1,0 +1,112 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var jsonModule = Json.Serialize(ViewBag.SelectedModule);
+}
+<div class="containor">
+    <nav class="navbar navbar-expand-sm navbar-light">
+        <div class="container-fluid">
+            <object data="~/images/h4u_icon_02_text_green.svg"
+                    width="40"
+                    height="40"
+                    style="position: absolute; top: 0; left: 0; margin-left: 10px; margin-top: 5px">
+            </object>
+            <a class="navbar-brand" style="margin-left: 50px; font-weight: bold">HoursForYou</a>
+            <div class="navbar-collapse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About" asp-route-userID="@ViewBag.UserID">About</a>
+                    </li>
+                    <li>
+                        <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Semester" asp-action="SemesterCreation" asp-route-userID="@ViewBag.UserID">Create Semester</a>
+                    </li>
+                    <li>
+                        <label style="font-size: 25px; font-weight: lighter; color: gray">|</label>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="SemesterPlanner" asp-action="UserSemesterPlanner" asp-route-userID="@ViewBag.UserID">Planner</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="rectangle" style=" margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px; align-content: center">
+        <div class="block" style="width: 100%">
+            <form asp-action="UserModulePlanner" method="post">
+                <form>
+                    <div class="row">
+                        <h1 class="display-4" style="margin-bottom: 25px">@ViewBag.SelectedModule.ModuleName:</h1>
+                    </div>
+                    <div class="row">
+                        <p>UserID:@ViewBag.UserID</p>
+                    </div>
+                    <div class="row">
+                        <p>SemesterID:@ViewBag.SemesterID</p>
+                    </div>
+                    <div class="row">
+                        <p>ModuleID:@ViewBag.ModuleID</p>
+                    </div>
+                    <div class="row">
+                        <p style="color: green; margin-top: 20px">Select the week in which you want to see the hours you have left to complete.</p>
+                    </div>
+                    <div class="row">
+                        <select id="weekDropDown" name="selectedWeek" style="height: 35px; text-align: center; font-size: 20px; font-weight: bold; background-color: ghostwhite">
+                            @for (int week = 1; week <= ViewBag.SelectedModule.CompletedHours.Count; week++)
+                            {
+                                <option value="@week">Week @week</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="row">
+                        <h1 class="display-7" style="margin-bottom: 25px; margin-top: 25px">Completed Hours:</h1>
+                    </div>
+                    <div class="row">
+                         <p class="display-2" style="margin-top: 5px" id="selectedWeekHoursCompleted"></p>
+                    </div>
+                    <hr style="margin-top: 25px; height: 2px"/>
+                    <div class="row">
+                        <h1 class="display-7" style="margin-bottom: 25px; margin-top: 25px">Add Hours:</h1>
+                    </div>
+                    <div class="row" style="margin-bottom: 20px;margin-top: 40px; max-width: 660px; margin-right: auto; margin-left: auto">
+                        <button type="button" id="back" class="default_button"
+                                style="height: 35px; background-color: red" onclick="location.href='@Url.Action("UserModulePlanner", "ModulePlanner", new {@ViewBag.UserID, @ViewBag.SemesterID})'">
+                            Back
+                        </button>
+                    </div>
+                </form>
+            </form>
+        </div>
+    </div>       
+</div>
+<script>
+    const weekDropdown = document.getElementById('weekDropDown');
+    const selectedWeekHoursCompleted = document.getElementById('selectedWeekHoursCompleted');
+    const moduleCompletedHours = JSON.parse('@Html.Raw(Json.Serialize(ViewBag.SelectedModule.CompletedHours))');
+
+    weekDropdown.addEventListener('change', function () {
+        const selectedWeek = parseInt(this.value);
+        let output = '';
+
+        for (const [week, completedHours] of Object.entries(moduleCompletedHours)) {
+            if (parseInt(week) === selectedWeek - 1) {
+                output += `${completedHours}/ ${@ViewBag.SelectedModule.SelfStudyHours}\n`;
+            }
+        }
+
+        selectedWeekHoursCompleted.textContent = output;
+    });
+
+    // Trigger the change event manually to display the initial output
+    weekDropdown.dispatchEvent(new Event('change'));
+</script>
+
+
+
+
+
+
+    

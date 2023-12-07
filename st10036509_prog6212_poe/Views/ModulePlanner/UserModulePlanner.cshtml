@@ -49,7 +49,7 @@
                         <p>SemesterID:@ViewBag.SemesterID</p>
                     </div>
                     <div class="row">
-                        <p style="color: green; margin-top: 20px">Select from one of your modules below to view its infomration and proceed to viewing the individual module information further.</p>
+                        <p style="color: green; margin-top: 20px">Select from one of your modules below to view its infomration and add hours you have completed.</p>
                     </div>
                     <div class="row">
                         <label class="display-6" id="selectedSemesterLabel" style="margin-left: auto"></label>
@@ -73,7 +73,7 @@
                                 <tbody>
                                     @foreach (var module in ViewBag.Modules)
                                     {
-                                        <tr>
+                                        <tr data-module-id="@module.ModuleID">
                                             <td class="modules">@module.ModuleName</td>
                                             <td>@module.SelfStudyHours</td>
                                             <td><input type="radio" name="selectedModule" value="1"></td>
@@ -94,4 +94,18 @@
         </div>
     </div>
 </div>
+<script>
+    const radioButtonsModuleTable = document.querySelectorAll('input[name="selectedModule"]');
+
+    radioButtonsModuleTable.forEach(function (radioButton) {
+        radioButton.addEventListener('change', function () {
+            const selectedRow = this.closest('tr');
+            const userID = '@ViewBag.UserID';
+            const semesterID = '@ViewBag.SemesterID';
+            const selectedModuleID = selectedRow.dataset.moduleId;
+
+            window.location.href = '/ModuleViewer/UserModuleViewer?userID=' + encodeURIComponent(userID) + '&semesterID=' + encodeURIComponent(semesterID) + '&moduleID=' + encodeURIComponent(selectedModuleID);
+        });
+    });
+</script>
     

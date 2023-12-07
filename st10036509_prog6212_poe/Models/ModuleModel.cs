@@ -9,6 +9,7 @@
         public Dictionary<string, double>? CompletedHours { get; set; }
         public double SelfStudyHours { get; set; }
         public DateTime SemesterStartDate { get; set; }
+        public int ModuleID { get; set; }
 
     }
 }
