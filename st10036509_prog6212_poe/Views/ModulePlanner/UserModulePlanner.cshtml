@@ -82,14 +82,14 @@
                                     }
                                 </tbody>
                             </table>
-                            @* back button *@
-                            <div class="row" style="margin-bottom: 20px;margin-top: 40px; max-width: 660px; margin-right: auto; margin-left: auto">
-                                <button type="button" id="back" class="default_button"
-                                        style="height: 35px; background-color: red" onclick="location.href='@Url.Action("UserSemesterPlanner", "SemesterPlanner", new {@ViewBag.UserID})'">
-                                    Back
-                                </button>
-                            </div>
                         </div>
+                    </div>
+                    @* back button *@
+                    <div class="row" style="margin-bottom: 20px;margin-top: 40px; max-width: 660px; margin-right: auto; margin-left: auto">
+                        <button type="button" id="back" class="default_button"
+                                style="height: 35px; background-color: red" onclick="location.href='@Url.Action("UserSemesterPlanner", "SemesterPlanner", new {@ViewBag.UserID})'">
+                            Back
+                        </button>
                     </div>
                  </form>
             </form>

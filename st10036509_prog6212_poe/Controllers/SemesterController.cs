@@ -77,6 +77,7 @@ namespace st10036509_prog6212_poe.Controllers
             ViewBag.StartDate = null;
             //return view with list of modules
             TempData["AlertMessage"] = "Semester Created Successfully";
+            ModuleRepository.ClearModules();
             //return view with list of modules
             return View();
         }//end SemesterCreation method
