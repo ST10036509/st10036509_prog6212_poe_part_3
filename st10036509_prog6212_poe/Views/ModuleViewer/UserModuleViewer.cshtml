@@ -36,19 +36,10 @@
     </nav>
     <div class="rectangle" style=" margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px; align-content: center">
         <div class="block" style="width: 100%">
-            <form asp-action="UserModulePlanner" method="post">
+            <form asp-action="UserModuleViewer" method="post">
                 <form>
                     <div class="row">
                         <h1 class="display-4" style="margin-bottom: 25px">@ViewBag.SelectedModule.ModuleName:</h1>
-                    </div>
-                    <div class="row">
-                        <p>UserID:@ViewBag.UserID</p>
-                    </div>
-                    <div class="row">
-                        <p>SemesterID:@ViewBag.SemesterID</p>
-                    </div>
-                    <div class="row">
-                        <p>ModuleID:@ViewBag.ModuleID</p>
                     </div>
                     <div class="row">
                         <p style="color: green; margin-top: 20px">Select the week in which you want to see the hours you have left to complete.</p>
@@ -71,12 +62,38 @@
                     <div class="row">
                         <h1 class="display-7" style="margin-bottom: 25px; margin-top: 25px">Add Hours:</h1>
                     </div>
-                    <div class="row" style="margin-bottom: 20px;margin-top: 40px; max-width: 660px; margin-right: auto; margin-left: auto">
+                    <div class="row">
+                        <p style="color: green; margin-top: 10px">Enter the number of hours and the date you completed them in order to add it to the module for the week you are currently in.</p>
+                    </div>
+                    <div class="row">
+                        <label for="hours" style="font-size: 20px; color: gray">Hours:</label>
+                        <input id="hours" name="hours" class="form-control" type="number" required />
+                    </div>
+                    <div class="row">
+                        <label for="selectedDate" style="font-size: 20px; color: gray">Date:</label>
+                        <input id="selectedDate" name="selectedDate" class="form-control" type="date" required />
+                    </div>
+                    <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
+                        <button type="submit" id="addHoursButton" class="submit_button"
+                                asp-route-userID="@ViewBag.UserID" asp-route-semesterID="@ViewBag.SemesterID"
+                                asp-route-moduleID="@ViewBag.ModuleID" asp-route-module="@jsonModule"
+                                style="height: 35px; background-color: #77d17f">
+                            Add Hours
+                        </button>
+                        <input type="hidden" id="moduleJson" name="moduleJson" value='@jsonModule' />
+                    </div>
+                    <div class="row" style="margin-bottom: 20px;margin-top: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                         <button type="button" id="back" class="default_button"
                                 style="height: 35px; background-color: red" onclick="location.href='@Url.Action("UserModulePlanner", "ModulePlanner", new {@ViewBag.UserID, @ViewBag.SemesterID})'">
                             Back
                         </button>
                     </div>
+                    @if (TempData["AlertMessage"] != null)
+                    {
+                        <script>
+                            alert('@TempData["AlertMessage"]');
+                        </script>
+                    }
                 </form>
             </form>
         </div>
@@ -98,10 +115,22 @@
         }
 
         selectedWeekHoursCompleted.textContent = output;
+
+        var dateInput = document.getElementById('selectedDate');
+        var startDate = new Date(new Date('@ViewBag.SelectedModule.SemesterStartDate').getTime() + (7 * selectedWeek * 24 * 60 * 60 * 1000));
+        var endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 6);
+        dateInput.min = formatDate(startDate);
+        dateInput.max = formatDate(endDate);
     });
 
-    // Trigger the change event manually to display the initial output
     weekDropdown.dispatchEvent(new Event('change'));
+s
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var day = ('0' + date.getDate()).slice(-2);
+        return year + '-' + month + '-' + day;
+    }
 </script>
 
 

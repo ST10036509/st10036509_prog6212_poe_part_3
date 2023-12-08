@@ -41,18 +41,6 @@
                     <h1 class="display-4" style="margin-bottom: 25px">Create a Module:</h1>
                 </div>
                 <div class="row">
-                    <p>UserID:@ViewBag.UserID</p>
-                </div>
-                <div class="row">
-                    <p>Name:@ViewBag.SemesterName</p>
-                </div>
-                <div class="row">
-                    <p>Weeks:@ViewBag.NumberOfWeeks</p>
-                </div>
-                <div class="row">
-                    <p>Date:@ViewBag.StartDate</p>
-                </div>
-                <div class="row">
                     <p style="color: green">Fill out the below information and click the add module button below to add it to the semester. You can add as many as you want!</p>
                 </div>
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
@@ -95,9 +83,6 @@
                         alert('@TempData["AlertMessage"]');
                     </script>
                 }
-                <div class="row">
-                    <label>@(ViewBag.Modules != null ? ViewBag.Modules.Count : 0)</label>
-                </div>
             </form>
         </div>
     </div>
