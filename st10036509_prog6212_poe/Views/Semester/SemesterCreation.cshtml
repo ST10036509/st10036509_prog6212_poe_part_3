@@ -2,12 +2,14 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Semester Creation";
+    ViewData["Title"] = "SemesterCreation";
 }
 
 <div class="containor">
+    @* navbar *@
     <nav class="navbar navbar-expand-sm navbar-light">
         <div class="container-fluid">
+            @* logo *@
             <object data="~/images/h4u_icon_02_text_green.svg"
                     width="40"
                     height="40"
@@ -35,39 +37,45 @@
             </div>
         </div>
     </nav>
+    @* page content *@
     <div class="rectangle" style=" width: auto; margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px">
         <div class="block" style="width: 100%">
             <form asp-action="SemesterCreation" method="post">
+                @* title *@
                 <div class="row">
                     <h1 class="display-4" style="margin-bottom: 25px">Create a Semester:</h1>
                 </div>
+                @* guide *@
                 <div class="row">
                     <p style="color: green">To create a new semester fill out the information below. Keep in mind that you need to add at least one module before you can submit.</p>
                 </div>
+                @* semester name input and label *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label for="semesterName" style="font-size: 20px; color: gray">Semester Name:</label>
                     <input id="semesterName" name="semesterName" style="opacity: 100%; height: 35px" value="@ViewBag.SemesterName" required />
                 </div>
+                @* number of weeks input and label *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label for="numberOfWeeks" style="font-size: 20px; color: gray">Number of Weeks:</label>
                     <input id="numberOfWeeks" name="numberOfWeeks" type="number" min="0" style="opacity: 100%; height: 35px" value="@ViewBag.NumberOfWeeks" required />
                 </div>
+                @* start date input and label *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label for="startDate" style="font-size: 20px; color: gray">Start Date:</label>
                     <input id="startDate" name="startDate" type="date" style="opacity: 100%; height: 35px" value="@ViewBag.StartDate" required />
                 </div>
+                @* guide *@
                 <div class="row">
                     <p style="color: green">Add your modules below. You can add as many modules as you like, however, at least one must be added in order to successfully create a semester.</p>
                 </div>
+                @* add module button *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <button type="button" id="addModuleButton" class="default_button"
                             style="height: 35px" onclick="validateInputsAndRedirect('@Url.Action("ModuleCreation", "Module")')">
                         Add Modules
                     </button>
                 </div>
-                <div class="row">
-                    <p id="semesterSuccessMessage" style="display: none; color: forestgreen; font-size: 20px; margin-left: 10px">Successfuly Added Module!</p>
-                </div>
+                @* create semester button *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <button type="submit" id="createSemesterButton" class="submit_button"
                             asp-route-userID="@ViewBag.UserID" asp-route-semesterName="@ViewBag.SemesterName"
@@ -76,6 +84,7 @@
                         Create Semester
                     </button>
                 </div>
+                @* alert *@
                 @if (TempData["AlertMessage"] != null)
                 {
                     <script>
@@ -87,6 +96,7 @@
     </div>
 </div>
 <script>
+    // This script is used to validate the inputs and redirect to the module creation page
     function validateInputsAndRedirect(url) {
         var semesterName = document.getElementById("semesterName").value;
         var numberOfWeeks = parseInt(document.getElementById("numberOfWeeks").value);
@@ -102,11 +112,13 @@
         location.href = redirectUrl;
     }
 
+    // This script is used to validate a date
     function isValidDate(dateString) {
         var timestamp = Date.parse(dateString);
         return !isNaN(timestamp);
     }
 
+    // This script is used to format a date
     function formatDate(dateString) {
         var date = new Date(dateString);
         var year = date.getFullYear();

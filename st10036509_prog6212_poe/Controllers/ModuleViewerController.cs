@@ -8,24 +8,34 @@ namespace st10036509_prog6212_poe.Controllers
 {
     public class ModuleViewerController : Controller
     {
+        //global variabels:
         ModuleModel module = new ModuleModel();
         string connectionString = "Server=tcp:dbserver-vc-cldv6212-st10036509.database.windows.net,1433; Initial Catalog = db-vc-prog6212-st10036509-part-2; Persist Security Info=False; User ID = ST10036509; Password=Randomsangh72; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout = 30;";
 
+        //Intital page load
         [HttpGet]
         public async Task<IActionResult> UserModuleViewer(int userID,int semesterID, int moduleID) 
         {
+            //establish connection
             SqlConnection cnn = new SqlConnection(connectionString);
+            //write query to get module data
             string query = "SELECT ModuleName, ModuleCode, NumberOfCredits, NumberOfHoursPerWeek, StartDate, SelfStudyHours, CompletedHours FROM Modules WHERE ModuleID = @ModuleID";
 
+            //establish command 
             using (SqlCommand command = new SqlCommand(query, cnn))
             {
+                //set paramater for command 
                 command.Parameters.AddWithValue("@ModuleID", moduleID);
+                //open connection 
                 cnn.Open();
 
+                //establish data reader
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
+                    //while reading data
                     while (await reader.ReadAsync())
                     {
+                        //pull data from query into model
                         module.ModuleName = (string)reader["ModuleName"];
                         module.ModuleCode = (string)reader["ModuleCode"];
                         module.Credits = (int)reader["NumberOfCredits"];
@@ -39,41 +49,56 @@ namespace st10036509_prog6212_poe.Controllers
                         module.CompletedHours = completedHours;
                     }
                 }
-
+                //close connection
                 cnn.Close();
+                //pass data to view
                 ViewBag.SelectedModule = module;
                 ViewBag.SemesterID = semesterID;
                 ViewBag.ModuleID = moduleID;
                 ViewBag.UserID = userID;
+                //load view
                 return View();
             }
-        }
+        }//end UserModuleViewer httpGet method
 
+        //page submit method
         [HttpPost]
         public async Task<IActionResult> UserModuleViewer(int userID, int semesterID, int moduleID, string moduleJson, DateTime selectedDate, string hours)
         {
+            //deserialize module and store in local variable
             var currentModule = JsonSerializer.Deserialize<ModuleModel>(moduleJson, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });
+            //set the moduleID
             currentModule.ModuleID = moduleID;
 
+            //update the completed hours of the module
             var updatedModule = IdentifyAndUpdateWeek(selectedDate, currentModule, hours);
 
+            //post updates to the database
             await Task.Run(() => UpdateCompletedHours(moduleID, updatedModule));
 
+            //establish connection
             SqlConnection cnn = new SqlConnection(connectionString);
+            //establish query
             string query = "SELECT ModuleName, ModuleCode, NumberOfCredits, NumberOfHoursPerWeek, StartDate, SelfStudyHours, CompletedHours FROM Modules WHERE ModuleID = @ModuleID";
 
+            //establisg command
             using (SqlCommand command = new SqlCommand(query, cnn))
             {
+                //establish command paramters
                 command.Parameters.AddWithValue("@ModuleID", moduleID);
+                //open connection
                 cnn.Open();
 
+                //establish data reader
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
+                    //while reading data
                     while (await reader.ReadAsync())
                     {
+                        //pull data from database and store in module
                         module.ModuleName = (string)reader["ModuleName"];
                         module.ModuleCode = (string)reader["ModuleCode"];
                         module.Credits = (int)reader["NumberOfCredits"];
@@ -87,16 +112,19 @@ namespace st10036509_prog6212_poe.Controllers
                         module.CompletedHours = completedHours;
                     }
                 }
-
+                //close connection
                 cnn.Close();
+                //pass data to view
                 ViewBag.SelectedModule = module;
                 ViewBag.SemesterID = semesterID;
                 ViewBag.ModuleID = moduleID;
                 ViewBag.UserID = userID;
+                //post an alert message
                 TempData["AlertMessage"] = "Successfully Added Hours!";
+                //load view
                 return View();
-            }         
-        }
+            }
+        }//end UserModuleViewer httpPost method
 
         //tuple to identify the week and update the hours
         public ModuleModel IdentifyAndUpdateWeek(DateTime date, ModuleModel selectedModule, string hours)
@@ -149,3 +177,4 @@ namespace st10036509_prog6212_poe.Controllers
         }//end UpdateModuleDatabase method
     }
 }
+//__________________________________________....oooOO0_END_OF_FILE_0OOooo....__________________________________________

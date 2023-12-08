@@ -6,8 +6,10 @@
 }
 
 <div class="containor">
+    @* navbar *@
     <nav class="navbar navbar-expand-sm navbar-light">
         <div class="container-fluid">
+            @* logo *@
             <object data="~/images/h4u_icon_02_text_green.svg"
                     width="40"
                     height="40"
@@ -35,19 +37,24 @@
             </div>
         </div>
     </nav>
+    @* page content *@
     <div class="rectangle" style=" margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px; align-content: center">
         <div class="block" style="width: 100%">
             <form asp-action="UserModulePlanner" method="post">
                 <form>
+                    @* title *@
                     <div class="row">
                         <h1 class="display-4" style="margin-bottom: 25px">Planner:</h1>
                     </div>
+                    @* guide *@
                     <div class="row">
                         <p style="color: green; margin-top: 20px">Select from one of your modules below to view its infomration and add hours you have completed.</p>
                     </div>
+                    @* subtitle *@
                     <div class="row">
                         <label class="display-6" id="selectedSemesterLabel" style="margin-left: auto"></label>
                     </div>
+                    @* table *@
                     <div class="row">
                         <div class="table-container">
                             <table class="table" id="moduleTable" style="border-color: black; column-rule-color: black; column-rule-style: solid; column-rule-color: black">
@@ -75,6 +82,7 @@
                                     }
                                 </tbody>
                             </table>
+                            @* back button *@
                             <div class="row" style="margin-bottom: 20px;margin-top: 40px; max-width: 660px; margin-right: auto; margin-left: auto">
                                 <button type="button" id="back" class="default_button"
                                         style="height: 35px; background-color: red" onclick="location.href='@Url.Action("UserSemesterPlanner", "SemesterPlanner", new {@ViewBag.UserID})'">
@@ -89,15 +97,18 @@
     </div>
 </div>
 <script>
+    // Get radio buttons for module table
     const radioButtonsModuleTable = document.querySelectorAll('input[name="selectedModule"]');
 
+    // Add event listener to each radio button
     radioButtonsModuleTable.forEach(function (radioButton) {
         radioButton.addEventListener('change', function () {
             const selectedRow = this.closest('tr');
             const userID = '@ViewBag.UserID';
             const semesterID = '@ViewBag.SemesterID';
+            // Get module id from selected row
             const selectedModuleID = selectedRow.dataset.moduleId;
-
+            // Redirect to user module viewer page
             window.location.href = '/ModuleViewer/UserModuleViewer?userID=' + encodeURIComponent(userID) + '&semesterID=' + encodeURIComponent(semesterID) + '&moduleID=' + encodeURIComponent(selectedModuleID);
         });
     });

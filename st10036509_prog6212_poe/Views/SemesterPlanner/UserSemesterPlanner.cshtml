@@ -6,8 +6,10 @@
 }
 
 <div class="containor">
+   @*  navbar *@
     <nav class="navbar navbar-expand-sm navbar-light">
         <div class="container-fluid">
+            @* logo *@
             <object data="~/images/h4u_icon_02_text_green.svg"
                     width="40"
                     height="40"
@@ -35,16 +37,20 @@
             </div>
         </div>
     </nav>
+    @* page content *@
     <div class="rectangle" style=" width: auto; margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px">
         <div class="block" style="width: 100%">
             <form asp-action="UserSemesterPlanner" method="post">
                 <form>
+                    @* title *@
                     <div class="row">
                         <h1 class="display-4" style="margin-bottom: 25px">Planner:</h1>
                     </div>
+                    @* quide *@
                     <div class="row">
                         <p style="color: green">Select from one of your semesters below to view its modules and proceed to viewing the individual module information further.</p>
                     </div>
+                    @* table for semesters *@
                     <div class="table-container">
                         <table class="table" id="semesterTable" style="border-color: black; column-rule-color: black; column-rule-style: solid; column-rule-color: black">
                             <thead>
@@ -74,14 +80,16 @@
     </div>
 </div>
 <script>
+    // get all radio buttons
     const radioButtonsSemesterTable = document.querySelectorAll('input[name="selectedSemester"]');
-
+    // add event listener to each radio button
     radioButtonsSemesterTable.forEach(function (radioButton) {
         radioButton.addEventListener('change', function () {
             const selectedRow = this.closest('tr');
             const userID = '@ViewBag.UserID';
+            // get semester id from selected row
             const selectedSemesterID = selectedRow.dataset.semesterId;
-
+            // redirect to user module planner page
             window.location.href = '/ModulePlanner/UserModulePlanner?userID=' + encodeURIComponent(userID) + '&semesterID=' + encodeURIComponent(selectedSemesterID);
         });
     });

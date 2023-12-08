@@ -2,11 +2,13 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Module Creation";
+    ViewData["Title"] = "ModuleCreation";
 }
 <div class="containor">
+    @* navbar *@
     <nav class="navbar navbar-expand-sm navbar-light">
         <div class="container-fluid">
+            @* logo *@
             <object data="~/images/h4u_icon_02_text_green.svg"
                     width="40"
                     height="40"
@@ -34,35 +36,40 @@
             </div>
         </div>
     </nav>
+    @* page content *@
     <div class="rectangle" style=" width: auto; margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px">
         <div class="block" style="width: 100%">
             <form asp-action="ModuleCreation" method="post">
+                @* title *@
                 <div class="row">
                     <h1 class="display-4" style="margin-bottom: 25px">Create a Module:</h1>
                 </div>
+                @* guide *@
                 <div class="row">
                     <p style="color: green">Fill out the below information and click the add module button below to add it to the semester. You can add as many as you want!</p>
                 </div>
+                @* module name input and label *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     Ainslie Rocks! True :))
                     <label for="moduleName" style="font-size: 20px; color: gray">Module Name:</label>
                     <input id="moduleName" name="moduleName" style="opacity: 100%; height: 35px" required />
                 </div>
+                @* module code input and label *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label for="moduleCode" style="font-size: 20px; color: gray">Module Code:</label>
                     <input id="moduleCode" name="moduleCode" style="opacity: 100%; height: 35px" required />
                 </div>
+                @* number of credits input and label *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label for="numberOfCredits" style="font-size: 20px; color: gray">Number of Credits:</label>
                     <input id="numberOfCredits" name="numberOfCredits" type="number" value="1" min="1" style="opacity: 100%; height: 35px" required />
                 </div>
+                @* hours per week input and label *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <label for="hoursPerWeek" style="font-size: 20px; color: gray">Class Hours Per Week:</label>
                     <input id="hoursPerWeek" name="hoursPerWeek" type="number" value="1" min="1" style="opacity: 100%; height: 35px" required />
                 </div>
-                <div class="row">
-                    <p id="moduleSuccessMessage" style="display: none; color: forestgreen; font-size: 20px; margin-left: 10px">Successfuly Added Module!</p>
-                </div>
+                @* add module button *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                     <button type="submit" id="createModuleButton" class="submit_button" 
                             asp-route-userID="@ViewBag.UserID" asp-route-semesterName="@ViewBag.SemesterName"
@@ -71,12 +78,14 @@
                         Add Module
                     </button>
                 </div>
+                @* cancel button *@
                 <div class="row" style="margin-bottom: 20px; max-width: 660px; margin-right: auto; margin-left: auto">
                 <button type="button" id="back" class="default_button"
                             style="height: 35px; background-color: red" onclick="validateInputsAndRedirect('@Url.Action("SemesterCreation", "Semester")')">
                         Back
                     </button>
                 </div>
+                @* alert message *@
                 @if (TempData["AlertMessage"] != null)
                 {
                     <script>
@@ -88,6 +97,7 @@
     </div>
 </div>
 <script>
+    // This function validates the inputs and redirects to the given url if successful
     function validateInputsAndRedirect(url) {
         var semesterName = '@ViewBag.SemesterName';
         var numberOfWeeks = '@ViewBag.NumberOfWeeks';

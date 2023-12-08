@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/st10036509_prog6212_poe.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @* header *@
     <header>
         @if (Context.Request.Path.StartsWithSegments("/Home") || (Context.Request.Path.StartsWithSegments("/Semester") || (Context.Request.Path.StartsWithSegments("/Planner"))))
         {

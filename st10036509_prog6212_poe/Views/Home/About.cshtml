@@ -1,10 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "About";
 }
 
 <div class="containor">
+    @* navbar *@
     <nav class="navbar navbar-expand-sm navbar-light">
         <div class="container-fluid">
+            @* logo *@
             <object data="~/images/h4u_icon_02_text_green.svg"
                     width="40"
                     height="40"
@@ -32,12 +34,15 @@
             </div>
         </div>
     </nav>
+    @* page content *@
     <div class="rectangle" style=" width: auto; margin-top: 150px; background-color: white; opacity: 90%; min-height: 600px; min-width: 900px">
         <div class="block" style="width: 100%">
             <form asp-action="About" method="post">
+                @* title *@
                 <div class="row">
                     <h1 class="display-4" style="margin-bottom: 25px">What is HoursForYou?</h1>
                 </div>
+                @* content *@
                 <div class="row">
                     <p style="margin-top: 30px; font-size: 20px">
                         HoursForYou is a ASP .NET MVC website developed to assist with time management across a school year. It allows users to create semesters and add all its relevant modules, generate a comprehensive list of these semesters and modules, as well as generate a timed self-study schedule based on a calculated hours per module bases. This frees students up to utilise their precious time on studying and improving rather than stressing over time management.
@@ -46,6 +51,7 @@
                         The entire program was created in ASP .NET CORE C# v11 utilising the Visual Studio IDE as well as its vast array of extensions and tools.
                         A separate Dynamically Linked Library (DLL) provides certain data and calculation functionality to the program.
                         The entire program and the DLL have been uploaded to GitHub and can be found
+                        @* github link *@
                         <a href="https://github.com/ST10036509/st10036509_prog6212_poe_part_3.git">here.</a>
                     </p>
                 </div>

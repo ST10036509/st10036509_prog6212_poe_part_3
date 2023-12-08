@@ -9,35 +9,49 @@ namespace st10036509_prog6212_poe.Controllers
 {
     public class SemesterController : Controller
     {
+        //declare variables
         string connectionString = "Server=tcp:dbserver-vc-cldv6212-st10036509.database.windows.net,1433; Initial Catalog = db-vc-prog6212-st10036509-part-2; Persist Security Info=False; User ID = ST10036509; Password=Randomsangh72; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout = 30;";
         List<ModuleModel> modulesList = new List<ModuleModel>();
 
+        // GET: /<controller>/
         [HttpGet]
+        //create action method
         public IActionResult SemesterCreation(int userID, List<ModuleModel> modules = null, 
             string semesterName = null, int numberOfWeeks = 1, string startDate = null)
         {
+            //create list to store modules
             modulesList = modules;
+            //pass values to view
             ViewBag.Modules = modulesList;
             ViewBag.UserID = userID;
             ViewBag.SemesterName = semesterName;
             ViewBag.NumberOfWeeks = numberOfWeeks;
             ViewBag.StartDate = startDate;
+            //return view with list of modules
             return View();
-        }
+        }//end SemesterCreation method
 
+        // POST: /<controller>/
         [HttpPost]
+        //create action method
         public async Task<IActionResult> SemesterCreation(int userID, string semesterName, int numberOfWeeks, string startDate)
         {
+            //create list to store modules
             List<ModuleModel> modules = ModuleRepository.GetModules();
+            //assign each week the default value per module
             modules = ModuleHoursAssignment(numberOfWeeks, modules);
 
+            //parse the start date string into a datetime object
             var parsedStartDate = DateTime.Parse(startDate);
 
+            //loop through modules in a semester
             foreach (ModuleModel module in modules)
             {
+                //assign the start date to each module
                 module.SemesterStartDate = parsedStartDate;
             }
 
+            //create semester object
             SemesterModel newSemester = new SemesterModel
             {
                 SemesterName = semesterName,
@@ -46,21 +60,26 @@ namespace st10036509_prog6212_poe.Controllers
                 Modules = modules
             };
 
+            //add semester to database and return semesterID
             var semesterID = await Task.Run(() => AddSemesterToDatabase(newSemester, userID));
 
+            //loop through modules in a semester
             foreach (ModuleModel module in modules)
             {
+                //add module to database
                 await Task.Run(() => AddModuleToDatabase(module, semesterID));
             }
 
+            //pass values to view
             ViewBag.UserID = userID;
             ViewBag.SemesterName = null;
             ViewBag.NumberOfWeeks = 1;
             ViewBag.StartDate = null;
+            //return view with list of modules
             TempData["AlertMessage"] = "Semester Created Successfully";
-
+            //return view with list of modules
             return View();
-        }
+        }//end SemesterCreation method
 
         //calculate and assign each week the defualt value per module
         public List<ModuleModel> ModuleHoursAssignment(double weeks, List<ModuleModel> modules)
@@ -141,3 +160,4 @@ namespace st10036509_prog6212_poe.Controllers
         }//end AddModuleToDatabase
     }
 }
+//__________________________________________....oooOO0_END_OF_FILE_0OOooo....__________________________________________
